@@ -24,12 +24,17 @@ Your phone  <--QR-->  WAHA  <--HTTP-->  Gateway (this repo)  <--MCP-->  Claude
 1. **WAHA** — Railway → New Project → Deploy a Docker Image → `devlikeapro/waha`.
    Variables: `WAHA_API_KEY`, `WHATSAPP_DEFAULT_ENGINE=NOWEB`. Generate a domain.
 2. **Gateway** — Railway → New → Deploy from GitHub repo → this repo.
+   Under **Settings → Source**, set the branch to `claude/fervent-darwin-wmmctg`
+   (this repo has no `main`).
    Variables: `WAHA_URL`, `WAHA_API_KEY` (same value as step 1), `WAHA_SESSION=default`,
    `GATEWAY_KEY`. Generate a domain.
 3. **Pair** — open the WAHA domain, start the `default` session, scan the QR from
    WhatsApp → Settings → Linked devices.
 4. **Connect Claude** — set `GATEWAY_URL` and `GATEWAY_KEY` as environment variables
    where Claude runs, then the `whatsapp` server in `.mcp.json` comes up automatically.
+
+Verified locally: the gateway boots, rejects requests without the `x-api-key`
+header (401), completes the MCP handshake, and lists all seven tools.
 
 Tools exposed: `whatsapp_check_session`, `whatsapp_start_session`,
 `whatsapp_restart_session`, `whatsapp_get_qr`, `whatsapp_send_message`,
