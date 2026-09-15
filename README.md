@@ -13,8 +13,10 @@ Your phone  <--QR-->  WAHA  <--HTTP-->  Gateway (this repo)  <--MCP-->  Claude
 - `gateway/server.py` — the MCP gateway (wraps WAHA's HTTP API as Claude tools)
 - `Procfile` / `requirements.txt` at the repo root — so Railway deploys this repo
   with no extra settings; both just point into `gateway/`
-- `.mcp.json` — how Claude Code connects. It reads `GATEWAY_URL` and `GATEWAY_KEY`
-  from the environment, so **no secret is ever committed here**.
+- `.mcp.json.example` — how Claude Code connects if you self-host. Copy it to
+  `.mcp.json` once the gateway is deployed; it reads `GATEWAY_URL` and `GATEWAY_KEY`
+  from the environment, so **no secret is ever committed here**. It is kept as
+  `.example` so an unset `GATEWAY_URL` doesn't throw a config error every session.
 - `SETUP.md` — the full walkthrough, including troubleshooting
 
 ### Deploy checklist
