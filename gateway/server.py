@@ -18,6 +18,9 @@ Env vars this reads:
 """
 
 import os
+import re
+from datetime import datetime, timezone
+
 import httpx
 from starlette.responses import JSONResponse
 from mcp.server.fastmcp import FastMCP
@@ -113,6 +116,141 @@ def waha_start(session=None):
     }
 
 
+# ----------------------------------------------------------------- chat helpers
+def _chat_id(chat: str) -> str:
+    """Normalise anything the caller might pass into a WAHA chatId.
+
+    Accepts a bare phone number, a group id, or an already-qualified JID. WhatsApp
+    phone numbers top out at 15 digits, so a longer id (or one with the `-` of a
+    legacy group id) is a group and belongs on `@g.us`, not `@c.us`.
+    """
+    c = (chat or "").strip()
+    if "@" in c:
+        return c
+    digits = re.sub(r"[^\d-]", "", c)
+    if not digits:
+        return c
+    if "-" in digits or len(digits) > 15:
+        return f"{digits}@g.us"
+    return f"{digits}@c.us"
+
+
+def _iso(ts):
+    try:
+        return datetime.fromtimestamp(int(ts), tz=timezone.utc).isoformat()
+    except Exception:
+        return None
+
+
+def _flat_id(value):
+    """WAHA returns ids as a plain string (NOWEB) or {_serialized: ...} (WEBJS)."""
+    if isinstance(value, dict):
+        return value.get("_serialized") or value.get("id") or value.get("user")
+    return value
+
+
+def _slim_message(m):
+    """Drop WAHA's `_data` blob, keeping only what triage actually reads.
+
+    A raw message is ~40 lines of protocol envelope around one line of text; pulling
+    a few chats at full fidelity would burn the context this is meant to save.
+    """
+    if not isinstance(m, dict):
+        return m
+    data = m.get("_data") if isinstance(m.get("_data"), dict) else {}
+    key = data.get("key") if isinstance(data.get("key"), dict) else {}
+    out = {
+        "id": m.get("id"),
+        "timestamp": m.get("timestamp"),
+        "time": _iso(m.get("timestamp")),
+        "fromMe": m.get("fromMe"),
+        "from": _flat_id(m.get("from")),
+        "body": m.get("body"),
+    }
+    # In a group, `from` is the group -- the human is `participant`.
+    participant = _flat_id(m.get("participant") or key.get("participant"))
+    if participant:
+        out["participant"] = participant
+    sender = m.get("notifyName") or data.get("pushName")
+    if sender:
+        out["senderName"] = sender
+    if m.get("hasMedia"):
+        out["hasMedia"] = True
+        media = m.get("media") or {}
+        if isinstance(media, dict) and media.get("mimetype"):
+            out["mediaType"] = media.get("mimetype")
+    reply_to = m.get("replyTo")
+    if isinstance(reply_to, dict):
+        out["replyTo"] = {"id": reply_to.get("id"), "body": reply_to.get("body")}
+    return {k: v for k, v in out.items() if v is not None}
+
+
+def _slim_chat(c):
+    if not isinstance(c, dict):
+        return {"id": c}
+    cid = _flat_id(c.get("id")) or _flat_id(c.get("chatId"))
+    name = (
+        c.get("name")
+        or c.get("subject")
+        or (c.get("groupMetadata") or {}).get("subject")
+        or c.get("pushName")
+        or c.get("notifyName")
+    )
+    out = {"id": cid, "name": name, "isGroup": bool(cid and str(cid).endswith("@g.us"))}
+    last = c.get("lastMessage")
+    if isinstance(last, dict):
+        out["lastMessage"] = _slim_message(last)
+        ts = last.get("timestamp")
+        if ts:
+            out["lastMessageAt"] = _iso(ts)
+    elif c.get("timestamp"):
+        out["lastMessageAt"] = _iso(c.get("timestamp"))
+    return out
+
+
+def _collect_chats(session, limit, force_groups=False):
+    """Pull the chat list, tolerating WAHA's several shapes of chat endpoint.
+
+    `force_groups` also queries the groups route and merges it in, for the case where
+    the chat list came back fine but simply did not carry the group being looked for.
+    """
+    chats, tried = [], []
+    seen = set()
+
+    def absorb(body):
+        added = 0
+        items = body if isinstance(body, list) else (body or {}).get("data")
+        if not isinstance(items, list):
+            return 0
+        for item in items:
+            slim = _slim_chat(item)
+            if slim.get("id") and slim["id"] in seen:
+                continue
+            if slim.get("id"):
+                seen.add(slim["id"])
+            chats.append(slim)
+            added += 1
+        return added
+
+    for label, endpoint, params in [
+        ("overview", f"/{session}/chats/overview", {"limit": limit, "offset": 0}),
+        ("chats", f"/{session}/chats", {"limit": limit, "offset": 0}),
+        ("legacy_chats", "/chats", {"session": session, "limit": limit}),
+        ("groups", f"/{session}/groups", {"limit": limit, "offset": 0}),
+    ]:
+        # `groups` is the last resort: engines differ on whether groups appear in the
+        # chat list at all, so it is only queried when nothing else produced them.
+        if label == "groups" and chats and not force_groups:
+            break
+        code, body = waha_try("GET", endpoint, params=params)
+        tried.append({"route": label, "status_code": code})
+        if code == 200:
+            absorb(body)
+            if label != "groups" and chats and not force_groups:
+                break
+    return chats, tried
+
+
 # --------------------------------------------------------------------------- MCP tools
 mcp = FastMCP("whatsapp", host="0.0.0.0", port=PORT)
 
@@ -173,20 +311,106 @@ def whatsapp_send_message(phone: str, message: str) -> dict:
     spaces (e.g. 2348012345678)."""
     return waha_request_json("POST", "/sendText", {
         "session": WAHA_SESSION,
-        "chatId": f"{phone}@c.us",
+        "chatId": _chat_id(phone),
         "text": message,
     })
 
 
 @mcp.tool()
 def whatsapp_get_messages(phone: str, limit: int = 10, download_media: bool = False) -> dict:
-    """Read recent messages from a chat. `phone` is digits only, country code first."""
+    """Read recent messages from a 1:1 chat, raw. `phone` is digits only, country code
+    first. For groups, communities, or a chat you only know by name, use
+    whatsapp_get_chat_messages instead -- it takes any chat id and returns far less noise."""
     return waha_request_json("GET", "/messages", params={
         "session": WAHA_SESSION,
-        "chatId": f"{phone}@c.us",
+        "chatId": _chat_id(phone),
         "limit": limit,
         "downloadMedia": download_media,
     })
+
+
+@mcp.tool()
+def whatsapp_list_chats(query: str = "", limit: int = 100, session: str = "") -> dict:
+    """List chats -- 1:1, groups and community groups -- with their ids, so a chat known
+    only by name can be resolved to the id the other tools need. `query` filters by name
+    (case-insensitive substring); leave it empty to see everything. Resolve a name once and
+    reuse the id: this scans the whole chat list, the message tools do not."""
+    target = session or WAHA_SESSION
+    chats, tried = _collect_chats(target, max(limit, 100))
+    if not chats:
+        return {"session": target, "chats": [], "attempts": tried,
+                "hint": "No chats came back. Check the session is WORKING "
+                        "(whatsapp_check_session) and that its store is enabled."}
+
+    q = (query or "").strip().lower()
+    if not q:
+        return {"session": target, "count": len(chats), "chats": chats[:limit]}
+
+    def match(items):
+        return [c for c in items
+                if q in str(c.get("name") or "").lower()
+                or q in str(c.get("id") or "").lower()]
+
+    matches = match(chats)
+    if not matches:
+        # The name may be a group the chat list left out -- ask for groups explicitly.
+        chats, tried = _collect_chats(target, max(limit, 100), force_groups=True)
+        matches = match(chats)
+    out = {"session": target, "query": query, "count": len(matches), "chats": matches[:limit]}
+    if not matches:
+        out["hint"] = "No name matched. Try a shorter or different fragment."
+        out["available_names"] = sorted(
+            {str(c.get("name")) for c in chats if c.get("name")}
+        )[:100]
+    return out
+
+
+@mcp.tool()
+def whatsapp_get_chat_messages(chat: str, limit: int = 25, since: int = 0,
+                               include_raw: bool = False,
+                               download_media: bool = False, session: str = "") -> dict:
+    """Read recent messages from ANY chat -- 1:1, group, or community group.
+
+    `chat` takes a phone number, a group id, or a full JID (`...@g.us` / `...@c.us`);
+    use whatsapp_list_chats to turn a chat name into an id. `since` is a unix timestamp
+    (seconds) -- pass the newest timestamp you saw last time to fetch only what arrived
+    after it. Output is trimmed to sender/time/body; set `include_raw` for full payloads."""
+    target = session or WAHA_SESSION
+    chat_id = _chat_id(chat)
+    params = {"limit": limit, "downloadMedia": download_media}
+    if since:
+        params["filter.timestamp.gte"] = int(since)
+
+    code, body = waha_try("GET", f"/{target}/chats/{chat_id}/messages", params=params)
+    if code != 200:
+        legacy = {"session": target, "chatId": chat_id, "limit": limit,
+                  "downloadMedia": download_media}
+        if since:
+            legacy["filter.timestamp.gte"] = int(since)
+        code, body = waha_try("GET", "/messages", params=legacy)
+    if code != 200:
+        return {"error": f"WAHA returned {code}", "chatId": chat_id, "detail": body,
+                "hint": "Check the id with whatsapp_list_chats; if this is a session-status "
+                        "error, run whatsapp_start_session."}
+
+    items = body if isinstance(body, list) else (body or {}).get("data") or []
+    if not isinstance(items, list):
+        items = []
+    # WAHA versions differ on whether they honour the timestamp filter, so enforce it here.
+    if since:
+        items = [m for m in items
+                 if isinstance(m, dict) and int(m.get("timestamp") or 0) > int(since)]
+    items.sort(key=lambda m: int((m or {}).get("timestamp") or 0))
+
+    messages = items if include_raw else [_slim_message(m) for m in items]
+    newest = max((int((m or {}).get("timestamp") or 0) for m in items), default=int(since or 0))
+    return {
+        "session": target,
+        "chatId": chat_id,
+        "count": len(messages),
+        "newest_timestamp": newest,
+        "messages": messages,
+    }
 
 
 @mcp.tool()

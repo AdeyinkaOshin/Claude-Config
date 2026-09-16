@@ -128,6 +128,20 @@ above. (Adding proper OAuth to the gateway is possible later but out of scope fo
 
 ---
 
+## Redeploying after a gateway change
+
+The tools Claude sees are whatever the **deployed** gateway exposes, so a change to
+`gateway/server.py` does nothing until Railway redeploys. Railway builds one branch,
+set under **Gateway service → Settings → Source**. After pushing gateway changes:
+
+1. Point that branch setting at the branch you pushed (or merge into the branch it
+   already tracks) and let the deploy finish.
+2. Restart Claude Code (or reconnect the connector) so it re-reads the tool list.
+3. Confirm with *"list my WhatsApp chats"* — if `whatsapp_list_chats` is missing,
+   Claude is still talking to the old build.
+
+---
+
 ## Phase 5 — Verify end to end
 
 Ask Claude:

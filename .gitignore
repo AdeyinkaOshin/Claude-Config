@@ -4,3 +4,6 @@ __pycache__/
 .env.*
 venv/
 .venv/
+
+# whatsapp-triage per-run cursors (chat ids stay in chats.json)
+.claude/skills/whatsapp-triage/state.json

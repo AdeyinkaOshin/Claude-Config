@@ -36,8 +36,25 @@ Your phone  <--QR-->  WAHA  <--HTTP-->  Gateway (this repo)  <--MCP-->  Claude
    where Claude runs, then the `whatsapp` server in `.mcp.json` comes up automatically.
 
 Verified locally: the gateway boots, rejects requests without the `x-api-key`
-header (401), completes the MCP handshake, and lists all seven tools.
+header (401), completes the MCP handshake, and lists its tools.
 
 Tools exposed: `whatsapp_check_session`, `whatsapp_start_session`,
 `whatsapp_restart_session`, `whatsapp_get_qr`, `whatsapp_send_message`,
-`whatsapp_get_messages`, `whatsapp_list_sessions`.
+`whatsapp_get_messages`, `whatsapp_list_sessions`, `whatsapp_list_chats`,
+`whatsapp_get_chat_messages`.
+
+`whatsapp_list_chats` resolves a chat *name* to the id the other tools need, and
+`whatsapp_get_chat_messages` reads any chat — 1:1, group, or community group — and
+strips WAHA's protocol envelope so a catch-up costs a fraction of the context.
+The older `whatsapp_get_messages` stays as-is for raw 1:1 reads.
+
+## Skills
+
+`.claude/skills/whatsapp-triage/` — checks the tracked WhatsApp chats and reports the
+tasks in them. It resolves each chat name to an id once (cached in `chats.json`), then
+fetches only messages newer than the last run (`state.json`, gitignored). Ask Claude to
+"check WhatsApp" in a session started from this repo. To use it from anywhere, copy the
+directory to `~/.claude/skills/whatsapp-triage`.
+
+Edit `chats.json` to follow a different set of chats — or let the skill do it with
+`scripts/wa.py add`.

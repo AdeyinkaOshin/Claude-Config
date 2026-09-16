@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "default_lookback_hours": 24,
+  "max_messages_per_chat": 40,
+  "chats": [
+    {
+      "key": "boon-me-support",
+      "label": "Boon Me Support",
+      "match": "boon",
+      "id": null,
+      "session": null,
+      "notes": "May be its own chat, or half of a group WhatsApp auto-titles 'Boon Me Support, Logan Adeyinka AI'. Confirm which on first resolve."
+    },
+    {
+      "key": "logan-adeyinka-ai",
+      "label": "Logan Adeyinka AI",
+      "match": "logan",
+      "id": null,
+      "session": null,
+      "notes": ""
+    },
+    {
+      "key": "gceo-execution-team",
+      "label": "GCEO Execution Team",
+      "match": "gceo",
+      "id": null,
+      "session": null,
+      "notes": "A community: it shows up as several groups (announcements + sub-groups). Track each one that carries work as its own entry."
+    }
+  ]
+}
