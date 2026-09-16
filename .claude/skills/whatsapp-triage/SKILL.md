@@ -21,8 +21,8 @@ first — `whatsapp_start_session`, then `whatsapp_get_qr` if it reports `SCAN_Q
 python3 .claude/skills/whatsapp-triage/scripts/wa.py plan
 ```
 
-This prints, per tracked chat: its WhatsApp `id` (or `needs_resolve: true`), the `since`
-timestamp to fetch from, and a `limit`. `since` is the cursor from the last run, or a
+This prints, per tracked chat: its WhatsApp `id` (or `needs_resolve: true`), the
+`since_epoch` timestamp to fetch from, and a `limit`. `since_epoch` is the cursor from the last run, or a
 24-hour lookback when there is no cursor yet. Use these values as given — they are what
 keeps the run cheap.
 
@@ -54,13 +54,16 @@ Rules for resolving:
 For each chat, one call:
 
 ```
-whatsapp_get_chat_messages(chat=<id>, since=<since>, limit=<limit>, session=<session or omit>)
+whatsapp_get_chat_messages(chat=<id>, since_epoch=<since_epoch>, limit=<limit>, session=<session or omit>)
 ```
 
-`since` is exclusive, so nothing is re-read. The response is already trimmed to
+`since_epoch` is exclusive, so nothing is re-read. The response is already trimmed to
 sender/time/body; only pass `include_raw=true` when a trimmed field is genuinely missing.
 `count: 0` means nothing new — say so in one line, do not re-fetch with a wider window
 unless asked.
+
+`chat` also accepts a chat name, which is the escape hatch when an id is stale: a name
+matching several chats comes back as `candidates` instead of a guess — show them and ask.
 
 In a group, `from` is the group id and the human is `participant` / `senderName`.
 
@@ -105,10 +108,10 @@ Keep chats with no tasks to one line each. Do not paste the raw message dump.
 Only after reporting, for each chat that returned messages:
 
 ```bash
-python3 .claude/skills/whatsapp-triage/scripts/wa.py mark <key> <newest_timestamp>
+python3 .claude/skills/whatsapp-triage/scripts/wa.py mark <key> <next_cursor>
 ```
 
-Use the `newest_timestamp` from that chat's response. Skip chats that errored, so their
+Use the `next_cursor` from that chat's response. Skip chats that errored, so their
 messages come back on the next run. To deliberately re-read a window, `wa.py reset [key]`.
 
 ## Replying

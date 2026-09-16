@@ -9,7 +9,7 @@ Splitting them means the expensive thing (resolving a chat name to an id) is
 cached in git, while the per-run cursor stays out of the history.
 
 Usage:
-  wa.py plan                    what to fetch this run: id + `since` per chat
+  wa.py plan                    what to fetch this run: id + `since_epoch` per chat
   wa.py resolve <key> <id> [--session S] [--label L]
   wa.py mark <key> <timestamp>  record the newest message seen for a chat
   wa.py add <key> <label> <match>
@@ -70,7 +70,7 @@ def cmd_plan():
             "needs_resolve": not c.get("id"),
             # No cursor yet (first run, or fresh container) -> fall back to the
             # lookback window rather than dragging in the whole history.
-            "since": cursor if cursor else floor,
+            "since_epoch": cursor if cursor else floor,
             "since_source": "cursor" if cursor else "lookback",
             "limit": int(reg.get("max_messages_per_chat", 40)),
         })
@@ -90,6 +90,7 @@ def cmd_resolve(key, chat_id, session=None, label=None):
 
 
 def cmd_mark(key, ts):
+    """`ts` is the `next_cursor` the message tool handed back."""
     reg = registry()
     find(reg, key)
     state = load(STATE, {})

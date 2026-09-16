@@ -251,6 +251,29 @@ def _collect_chats(session, limit, force_groups=False):
     return chats, tried
 
 
+def _resolve_chat(chat, session):
+    """Turn whatever `chat` is into a chatId. Returns (chat_id, name, candidates).
+
+    An id or phone number passes straight through. A name is looked up, so a caller
+    who only knows a chat by its title does not have to list chats first. Ambiguity is
+    handed back as candidates rather than guessed at -- picking the wrong chat here
+    means reading, or worse replying into, the wrong conversation.
+    """
+    c = (chat or "").strip()
+    if not c:
+        return None, None, []
+    if "@" in c or re.fullmatch(r"[\d\-+ ]+", c):
+        return _chat_id(c), None, []
+
+    chats, _ = _collect_chats(session, 200, force_groups=True)
+    q = c.lower()
+    exact = [x for x in chats if str(x.get("name") or "").lower() == q]
+    hits = exact or [x for x in chats if q in str(x.get("name") or "").lower()]
+    if len(hits) == 1:
+        return hits[0].get("id"), hits[0].get("name"), []
+    return None, None, hits
+
+
 # --------------------------------------------------------------------------- MCP tools
 mcp = FastMCP("whatsapp", host="0.0.0.0", port=PORT)
 
@@ -366,27 +389,42 @@ def whatsapp_list_chats(query: str = "", limit: int = 100, session: str = "") ->
 
 
 @mcp.tool()
-def whatsapp_get_chat_messages(chat: str, limit: int = 25, since: int = 0,
-                               include_raw: bool = False,
+def whatsapp_get_chat_messages(chat: str, limit: int = 25, since_epoch: int = 0,
+                               since: int = 0, include_raw: bool = False,
                                download_media: bool = False, session: str = "") -> dict:
     """Read recent messages from ANY chat -- 1:1, group, or community group.
 
-    `chat` takes a phone number, a group id, or a full JID (`...@g.us` / `...@c.us`);
-    use whatsapp_list_chats to turn a chat name into an id. `since` is a unix timestamp
-    (seconds) -- pass the newest timestamp you saw last time to fetch only what arrived
-    after it. Output is trimmed to sender/time/body; set `include_raw` for full payloads."""
+    `chat` takes a chat NAME, a phone number, a group id, or a full JID. A name that
+    matches several chats comes back as `candidates` to choose from, rather than being
+    guessed at. `since_epoch` is a unix timestamp in seconds: pass the `next_cursor`
+    from the previous call to fetch only what arrived since, or 0 for the most recent
+    messages. Output is trimmed to sender/time/body; set `include_raw` for full payloads."""
     target = session or WAHA_SESSION
-    chat_id = _chat_id(chat)
+    cutoff = int(since_epoch or since or 0)
+
+    chat_id, chat_name, candidates = _resolve_chat(chat, target)
+    if not chat_id:
+        if candidates:
+            return {"session": target, "query": chat, "needs_disambiguation": True,
+                    "candidates": [{"id": c.get("id"), "name": c.get("name"),
+                                    "isGroup": c.get("isGroup")} for c in candidates[:20]],
+                    "hint": "Several chats match that name. Call again with the `id` of "
+                            "the one you want."}
+        return {"session": target, "query": chat,
+                "error": f"No chat matched {chat!r}.",
+                "hint": "Try a shorter fragment, run whatsapp_list_chats to see the "
+                        "names, or check whether the chat is on another session."}
+
     params = {"limit": limit, "downloadMedia": download_media}
-    if since:
-        params["filter.timestamp.gte"] = int(since)
+    if cutoff:
+        params["filter.timestamp.gte"] = cutoff
 
     code, body = waha_try("GET", f"/{target}/chats/{chat_id}/messages", params=params)
     if code != 200:
         legacy = {"session": target, "chatId": chat_id, "limit": limit,
                   "downloadMedia": download_media}
-        if since:
-            legacy["filter.timestamp.gte"] = int(since)
+        if cutoff:
+            legacy["filter.timestamp.gte"] = cutoff
         code, body = waha_try("GET", "/messages", params=legacy)
     if code != 200:
         return {"error": f"WAHA returned {code}", "chatId": chat_id, "detail": body,
@@ -397,20 +435,24 @@ def whatsapp_get_chat_messages(chat: str, limit: int = 25, since: int = 0,
     if not isinstance(items, list):
         items = []
     # WAHA versions differ on whether they honour the timestamp filter, so enforce it here.
-    if since:
+    if cutoff:
         items = [m for m in items
-                 if isinstance(m, dict) and int(m.get("timestamp") or 0) > int(since)]
+                 if isinstance(m, dict) and int(m.get("timestamp") or 0) > cutoff]
     items.sort(key=lambda m: int((m or {}).get("timestamp") or 0))
 
     messages = items if include_raw else [_slim_message(m) for m in items]
-    newest = max((int((m or {}).get("timestamp") or 0) for m in items), default=int(since or 0))
-    return {
+    newest = max((int((m or {}).get("timestamp") or 0) for m in items), default=cutoff)
+    out = {
         "session": target,
         "chatId": chat_id,
         "count": len(messages),
-        "newest_timestamp": newest,
+        # Feed this straight back as `since_epoch` next time.
+        "next_cursor": newest,
         "messages": messages,
     }
+    if chat_name:
+        out["chatName"] = chat_name
+    return out
 
 
 @mcp.tool()
