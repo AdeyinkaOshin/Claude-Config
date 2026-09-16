@@ -18,6 +18,8 @@ Your phone  <--QR-->  WAHA  <--HTTP-->  Gateway (this repo)  <--MCP-->  Claude
   from the environment, so **no secret is ever committed here**. It is kept as
   `.example` so an unset `GATEWAY_URL` doesn't throw a config error every session.
 - `SETUP.md` — the full walkthrough, including troubleshooting
+- `CLOUD-NOTES.md` — extra steps that apply when driving this from a Claude Code
+  cloud session (egress allowlist, in particular)
 
 ### Deploy checklist
 
