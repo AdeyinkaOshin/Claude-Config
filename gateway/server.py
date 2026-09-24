@@ -190,6 +190,47 @@ def whatsapp_get_messages(phone: str, limit: int = 10, download_media: bool = Fa
 
 
 @mcp.tool()
+def whatsapp_find_chat(name: str = "", limit: int = 200) -> dict:
+    """Find chats (including groups) by name, case-insensitive substring. Returns each
+    match's chat id (groups end in @g.us) for use with whatsapp_get_chat_messages. Leave
+    `name` empty to list the most recent chats."""
+    code, body = waha_try("GET", f"/{WAHA_SESSION}/chats/overview", params={"limit": limit})
+    if code != 200:
+        code, body = waha_try("GET", f"/{WAHA_SESSION}/chats", params={
+            "limit": limit, "sortBy": "conversationTimestamp", "sortOrder": "desc"})
+    if code != 200 or not isinstance(body, list):
+        return {"error": f"WAHA returned {code}", "detail": body,
+                "hint": "If this is a session-status error, run whatsapp_start_session."}
+    needle = name.strip().lower()
+    chats = []
+    for c in body:
+        cid = c.get("id")
+        if isinstance(cid, dict):
+            cid = cid.get("_serialized")
+        title = c.get("name") or c.get("subject") or ""
+        if needle and needle not in title.lower():
+            continue
+        chats.append({"id": cid, "name": title, "is_group": str(cid).endswith("@g.us")})
+    return {"count": len(chats), "chats": chats}
+
+
+@mcp.tool()
+def whatsapp_get_chat_messages(chat_id: str, limit: int = 50,
+                               download_media: bool = False) -> dict:
+    """Read recent messages from any chat by its full id, e.g. a group
+    (120363...@g.us) found with whatsapp_find_chat."""
+    params = {"limit": limit, "downloadMedia": download_media}
+    code, body = waha_try("GET", f"/{WAHA_SESSION}/chats/{chat_id}/messages", params=params)
+    if code != 200:
+        code, body = waha_try("GET", "/messages",
+                              params={**params, "session": WAHA_SESSION, "chatId": chat_id})
+    if code not in (200, 201):
+        return {"error": f"WAHA returned {code}", "detail": body,
+                "hint": "If this is a session-status error, run whatsapp_start_session."}
+    return body
+
+
+@mcp.tool()
 def whatsapp_list_sessions() -> dict:
     """List every WhatsApp session known to WAHA and its status."""
     _, body = waha_try("GET", "/sessions", params={"all": "true"})

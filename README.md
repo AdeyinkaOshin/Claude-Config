@@ -36,8 +36,9 @@ Your phone  <--QR-->  WAHA  <--HTTP-->  Gateway (this repo)  <--MCP-->  Claude
    where Claude runs, then the `whatsapp` server in `.mcp.json` comes up automatically.
 
 Verified locally: the gateway boots, rejects requests without the `x-api-key`
-header (401), completes the MCP handshake, and lists all seven tools.
+header (401), completes the MCP handshake, and lists all nine tools.
 
 Tools exposed: `whatsapp_check_session`, `whatsapp_start_session`,
 `whatsapp_restart_session`, `whatsapp_get_qr`, `whatsapp_send_message`,
-`whatsapp_get_messages`, `whatsapp_list_sessions`.
+`whatsapp_get_messages`, `whatsapp_find_chat`,
+`whatsapp_get_chat_messages` (groups), `whatsapp_list_sessions`.
