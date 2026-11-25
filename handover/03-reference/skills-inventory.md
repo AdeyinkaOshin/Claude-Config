@@ -26,8 +26,8 @@ sources: /root/.claude/skills/synced/*/manifest.json and SKILL.md files (claude.
 version line in the skill's header. The repo copy available here has history only back to
 16 Oct 2026, so "≤ 16 Oct 2026" means "last changed on or before that date".
 
-**Handover doc column.** Paths are relative to `handover/`. Folders marked † were not yet
-written when this table was made. **[TO CONFIRM: final folder names for the † docs once the 02-workflows map exists.]**
+**Handover doc column.** Paths are relative to `handover/`. Folders marked were not yet
+written when this table was made. **[TO CONFIRM: final folder names for the docs once the 02-workflows map exists.]**
 
 ---
 
@@ -40,7 +40,7 @@ written when this table was made. **[TO CONFIRM: final folder names for the † 
 | `calendar-qa` | Plans Bunmi's 2-week look-ahead and the context file for the calendar team, then checks the team's bookings daily / Thursday / Sunday / Friday; never books or sends. | Adeyinka | claude.ai account (synced) | 2026-11-25 | `02-workflows/two-week-look-ahead/`, `02-workflows/daily-calendar-qa/` |
 | `bunmi-weekly-context-file` | Builds Bunmi's weekly context file (live deals, owners, tiers 1–3, where Bunmi is, what to book) from Outlook, SharePoint and WhatsApp. | Adeyinka builds it; Favour uses the output | claude.ai account (synced) | 2026-11-07 | `02-workflows/weekly-context-file/` |
 | `friday-calendar-check` | Checks the weekly draft of Bunmi's schedule against the Calendar Brief and the CT-00 to CT-04 working bibles, and writes the feedback note. | Favour (or the EA on duty), in the "Favour Calendar Management" project | claude.ai account (synced) | 2026-10-24 | `02-workflows/friday-calendar-check/` |
-| `meeting-artifacts` | After a meeting, turns the transcript into a review folder: context note, actions, menu of documents needed, and audience-specific drafts. Draft only. | Adeyinka (manual runs); Bunmi's account (scheduled) | claude.ai account (synced) — **this copy is v1.1**; the repo copy is v1.4 | 2026-10-15 (account copy) | `02-workflows/meeting-artifacts/` † |
+| `meeting-artifacts` | After a meeting, turns the transcript into a review folder: context note, actions, menu of documents needed, and audience-specific drafts. Draft only. | Adeyinka (manual runs); Bunmi's account (scheduled) | claude.ai account (synced) — **this copy is v1.1**; the repo copy is v1.4 | 2026-10-15 (account copy) | `02-workflows/meeting-review/` |
 | `vgg-logan-weekly-report` | Builds Logan's VGG-branded weekly Word status report for Central Ops from the "Logan AI" WhatsApp export and meeting transcripts. | Adeyinka | claude.ai account (synced) | 2026-10-05 | [`02-workflows/weekly-reports/`](../02-workflows/weekly-reports/README.md) |
 
 **[TO CONFIRM: should the account copy of `meeting-artifacts` (v1.1) be replaced with the repo's v1.4 zip, so manual runs follow the same rules as Bunmi's scheduled run?]**
@@ -51,11 +51,11 @@ These run the "air traffic control" system (Station, judgment queue, work reques
 
 | Skill | What it does | Who uses it | Installed | Last updated | Handover doc |
 |---|---|---|---|---|---|
-| `ops-runway` | Walks through every Station flight routed to the Ops lane one at a time, with context and next steps, drafts messages, and logs outcomes to `ops/log/`. | Adeyinka | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/ops-runway/` † |
-| `judgment-intake` | Tower side: files judgment questions for senior people and acts on their feedback (resolve or re-open). Hourly at :00. | Logan (tower) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` † |
-| `judgment-review` | Exec side: reviews judgment items assigned to that person and writes append-only feedback. Hourly at :30. | Bunmi and other reviewers (via their routines) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` † |
-| `work-intake` | Tower side: files work requests for someone else's Claude and picks up their result reports. Hourly at :00. | Logan (tower) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` † |
-| `work-run` | Assignee side: runs work requests with the assignee's own connectors within their policy; unattended runs never send. | Bunmi, Adeyinka (inside `ops-runway`) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` † |
+| `ops-runway` | Walks through every Station flight routed to the Ops lane one at a time, with context and next steps, drafts messages, and logs outcomes to `ops/log/`. | Adeyinka | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/ops-runway/` |
+| `judgment-intake` | Tower side: files judgment questions for senior people and acts on their feedback (resolve or re-open). Hourly at :00. | Logan (tower) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` |
+| `judgment-review` | Exec side: reviews judgment items assigned to that person and writes append-only feedback. Hourly at :30. | Bunmi and other reviewers (via their routines) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` |
+| `work-intake` | Tower side: files work requests for someone else's Claude and picks up their result reports. Hourly at :00. | Logan (tower) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` |
+| `work-run` | Assignee side: runs work requests with the assignee's own connectors within their policy; unattended runs never send. | Bunmi, Adeyinka (inside `ops-runway`) | Logan-VGG repo | ≤ 16 Oct 2026 | `02-workflows/judgment-and-work-requests/` |
 
 ### 1c. Bunmi's skills (Logan-VGG `skills-bunmi/`)
 
@@ -65,9 +65,9 @@ Ayomide does final QA on anything external.
 
 | Skill | What it does | Who uses it | Installed | Last updated | Handover doc |
 |---|---|---|---|---|---|
-| `meeting-artifacts` | Same after-meeting loop as above; v1.4 keeps the full transcript in each folder and runs as an hourly cloud routine in Bunmi's account, writing to the Executive Office SharePoint site. | Bunmi's account (scheduled); output reviewed by Adeyinka and Ayomide | Folder + `meeting-artifacts.zip` | 2026-11-20 (v1.4) | `02-workflows/meeting-artifacts/` † |
+| `meeting-artifacts` | Same after-meeting loop as above; v1.4 keeps the full transcript in each folder and runs as an hourly cloud routine in Bunmi's account, writing to the Executive Office SharePoint site. | Bunmi's account (scheduled); output reviewed by Adeyinka and Ayomide | Folder + `meeting-artifacts.zip` | 2026-11-20 (v1.4) | `02-workflows/meeting-review/` |
 | `pre-meeting-brief` | Evening before: a short context note per meeting for all attendees, with a 3-line top for Bunmi; flags meetings 48h out with no agenda. | Bunmi; Adeyinka can run it on request | Folder only | ≤ 16 Oct 2026 | **[TO CONFIRM: is this in use, and which doc covers it?]** |
-| `followup-drafter` | Drafts Bunmi's post-meeting WhatsApp follow-ups, team emails and next-meeting proposal; keep-warm mode for neglected contacts. | Called by `meeting-artifacts`; Adeyinka | Folder only | ≤ 16 Oct 2026 | `02-workflows/meeting-artifacts/` † |
+| `followup-drafter` | Drafts Bunmi's post-meeting WhatsApp follow-ups, team emails and next-meeting proposal; keep-warm mode for neglected contacts. | Called by `meeting-artifacts`; Adeyinka | Folder only | ≤ 16 Oct 2026 | `02-workflows/meeting-review/` |
 | `concept-docs` | Drafts Bunmi's concept documents (teasers, profiles, business cases, partnership concepts) in VGG house style, ready for Ayomide's QA. | Called by `meeting-artifacts`; Adeyinka on request | Folder only | ≤ 16 Oct 2026 | **[TO CONFIRM]** |
 | `okr-alignment` | Maps subsidiary OKRs to Group goals, scores alignment, drafts tighter OKRs and a routing key for prioritising tasks. | Bunmi (Uche checks the routing key) | Folder only | ≤ 16 Oct 2026 | **[TO CONFIRM]** |
 | `opportunity-screener` | Screens inbound pitches and "can we research these guys?" forwards; recommends pursue / route / park / decline with a reply draft. | Bunmi; Adeyinka via `ops-runway` | Folder only | ≤ 16 Oct 2026 | **[TO CONFIRM]** |
@@ -117,7 +117,7 @@ status-report / process-doc / runbook skills). None of the EA workflows depend o
 
 ## Gaps to confirm
 
-- **[TO CONFIRM: final folder names for the † docs once the 02-workflows map exists.]**
+- **[TO CONFIRM: final folder names for the docs once the 02-workflows map exists.]**
 - **[TO CONFIRM: should the account copy of `meeting-artifacts` (v1.1) be replaced with the repo's v1.4 zip?]**
 - **[TO CONFIRM: is `pre-meeting-brief` in use, and which doc covers it?]**
 - **[TO CONFIRM: is `week-ahead` still used now that `calendar-qa` Plan mode exists?]**
