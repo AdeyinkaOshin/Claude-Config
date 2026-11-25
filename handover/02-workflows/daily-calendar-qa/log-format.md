@@ -28,7 +28,7 @@ Plan mode uses:
 *Example (invented):*
 
 ```
-- VGG-000 · waiting · Invite has no location; asked Udeme to add full address · 18:10 WAT
+- VGG-XXX (placeholder code) · waiting · Invite has no location; asked Udeme to add full address · 18:10 WAT
 - calendar-qa · daily (evening) · 12 checked, 3 to fix, 1 covered by Adeyinka · 18:10 WAT
 ```
 
