@@ -33,7 +33,7 @@ Which one is the master plan if they disagree?]**
 ```
 Mon–Wed   Daily QA (morning + evening) ............ Adeyinka → fix list to Udeme
 Thu       Plan mode: 2-week look-ahead + themes ... Adeyinka → context for calendar team → Udeme books
-Fri       Weekly context file, ready by 12:00 ..... Adeyinka → Favour (loads into her project)
+Fri       Weekly context file, ready by 12:00 ..... Adeyinka → Favour (loads into Favour's project)
 Fri       Favour writes the weekly draft
 Fri       Friday calendar check on the draft ...... Favour → feedback note (must-fix before Saturday)
 Fri       Plan refresh (what changed) + week score  Adeyinka → note to Udeme

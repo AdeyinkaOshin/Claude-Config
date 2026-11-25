@@ -22,7 +22,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
    [`03-reference/glossary.md`](03-reference/glossary.md).
 2. **Set up**, in order — the `01-setup/` folder.
 3. **Learn the work** — the `02-workflows/` folder, starting with the daily and weekly rhythm below.
-4. Search the pack for **`[TO CONFIRM`** — these are gaps to settle with Adeyinka before handover.
+4. Work through [`03-reference/open-questions.md`](03-reference/open-questions.md) — every **[TO CONFIRM]** gap in one checklist, to settle with Adeyinka before handover.
 
 ## 01 — Setup (do once, in this order)
 
@@ -56,6 +56,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 - [Skills inventory](03-reference/skills-inventory.md) — every skill, where it's installed, its version
 - [Glossary](03-reference/glossary.md) — Station, flight, tower, tiers, look-ahead…
 - [Logan-VGG repo map](03-reference/logan-vgg-repo-map.md) — what lives where in Logan's repo
+- [Open questions](03-reference/open-questions.md) — every [TO CONFIRM] item, as a checklist
 - [Troubleshooting](03-reference/troubleshooting.md) — quick index of common problems
 - [How this pack stays updated](03-reference/how-this-pack-stays-updated.md)
 
@@ -64,6 +65,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 - `_templates/` — the template every workflow doc follows
 - `_versions/` — older copies of docs, saved automatically before each change
 - `tools/new_version.py` — snapshots a doc, bumps its version and logs the change
+- `tools/list_open_questions.py` — rebuilds `03-reference/open-questions.md`
 
 ## Known issues to fix before handover
 

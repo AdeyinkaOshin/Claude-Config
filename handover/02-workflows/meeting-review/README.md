@@ -30,7 +30,7 @@ Cloud routine setup and prompt: `Logan-VGG/skills-bunmi/meeting-artifacts/ROUTIN
 ## 1. Purpose
 
 **The problem.** After a meeting Bunmi usually needs three or four documents: a context note, an
-action list, a follow-up message, sometimes a proposal or brief he promised. These used to be
+action list, a follow-up message, sometimes a proposal or brief Bunmi promised. These used to be
 written by hand and then passed on for finishing and sending. Follow-ups slipped.
 
 **What the workflow does.** The `meeting-artifacts` skill turns one full transcript into one review

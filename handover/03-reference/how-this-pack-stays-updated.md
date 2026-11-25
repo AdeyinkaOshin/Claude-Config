@@ -65,8 +65,9 @@ Then edit the doc, commit and push.
 
 ## 5. Resolving [TO CONFIRM] items
 
-Search the pack for `[TO CONFIRM` and answer them. When you replace one, version the doc
-("Confirmed X"). The weekly run lists the ones still open.
+All open items are collected in `03-reference/open-questions.md`. Answer one, edit the doc,
+version it ("Confirmed X"), then run `python3 handover/tools/list_open_questions.py` to
+rebuild the list. The weekly run rebuilds it too.
 
 ## Change history
 | Version | Date | Change |
