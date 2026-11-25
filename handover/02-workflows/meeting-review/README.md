@@ -373,6 +373,9 @@ Note: `Logan-VGG/work/policies/external-qa.md` is an **older copy** of the same 
 19. **[TO CONFIRM: Should the older `work/policies/external-qa.md` be updated or removed?]**
 20. **[TO CONFIRM: The eight open defaults in SKILL.md section 3 (D1–D8: provisional structures for five types, Executive Brief length, audiences, which types to tune, Bunmi's own AI context, "our signatures", when the next pre-brief is drafted, first pass without a Claude seat) and the hourly schedule — have any been answered?]**
 21. **[TO CONFIRM: `pre-meeting-brief` and `followup-drafter` still point to Bunmi's OneDrive and the vault for storage and the do-not-name list, while `meeting-artifacts` v1.3+ uses the SharePoint site and `_Claude/` in OneDrive. Are those two skills due an update?]**
+22. **[TO CONFIRM: Has anyone reviewed the document-type menu counts since the loop went live?]** (from [document-types.md](document-types.md))
+23. **[TO CONFIRM: Have review edits been made that were never logged in `learning-log.md`?]** (from [version-history.md](version-history.md))
+24. **[TO CONFIRM: Has the cloud routine completed real runs, and have any Tier C or EXT folders gone through review?]** (from [version-history.md](version-history.md))
 
 ## Change history
 
