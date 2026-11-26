@@ -1,9 +1,9 @@
 ---
 name: calendar-qa
-description: Adeyinka's planning, quality-assurance and backup routine for Bunmi's calendar, built on Bunmi's 24 Nov calendar standard. Plan mode builds Bunmi's 2-week look-ahead and the context file for the calendar team. Udeme and the calendar team send the emails and book the meetings; this skill checks their work against everything Bunmi posts in the WhatsApp calendar group and the Station, flags what's missing or wrong, sets day themes, and scores the week. Daily, Thursday, Sunday and Friday modes. Never books, moves or sends. Triggers "/calendar-qa", "check the calendar", "run my QA", "daily calendar check", "set the day themes", "Sunday check", "score the week", "plan the next 2 weeks", "build the look-ahead", "make the context file".
+description: Adeyinka's planning, quality-assurance and backup routine for Bunmi's calendar, built on Bunmi's 24 Nov calendar standard. Plan mode builds Bunmi's 2-week look-ahead and the context file for the calendar team. Udeme and the calendar team send the emails and book the meetings; this skill checks their work against everything Bunmi posts in the WhatsApp calendar group and the Station, flags what's missing or wrong, sets day themes, and scores the week. Daily, Thursday, Sunday and Friday modes. Points out where the plan clashes with Favour's weekly draft. Never books, moves or sends. Triggers "/calendar-qa", "check the calendar", "run my QA", "daily calendar check", "set the day themes", "Sunday check", "score the week", "plan the next 2 weeks", "build the look-ahead", "make the context file".
 ---
 
-# Calendar QA (Adeyinka)
+# Calendar QA (Adeyinka) — v1.1, 26 Nov 2026
 
 Bunmi asked (25 Nov 2026): "Can Adeyinka play quality assurance and backup to support Udeme on all
 the things I put on the WhatsApp group?" And: "The use of my time and planning diligently and
@@ -189,6 +189,7 @@ booking after the book-by date, so the Friday score checks this.
 | Bunmi's Fireflies (shared by Logan as a repo) | ⏳ requested | Raw transcripts for meetings that have no review folder yet |
 | Bunmi's vault (Obsidian) | ⏳ requested | Deeper context on people and deals |
 | Weekly context file / week-ahead (`Planning/` on OneDrive) | ⏳ requested | Week focus, top meetings, backlog |
+| **Favour's weekly draft** (the draft of Bunmi's week Favour builds in the "Favour Calendar Management" project; this week in detail, next three in outline) | attach it, or look in OneDrive › Executive Office › Calendar | Clash check against the look-ahead: see "Clashes with Favour's plan" below |
 | P1/P2/P3 backlog file | ⏳ to create (`Planning/Backlog.xlsx` proposed) | Who still needs a slot |
 
 **While a source is ⏳:** skip the checks that need it, and say once at the start which checks were
@@ -218,6 +219,23 @@ same counterparty.
 
 A meeting that happened (on the calendar) but has no folder: check again next run; if still
 missing after a day, list it as "no review folder: ask someone who was in the room".
+
+### Clashes with Favour's plan
+
+Favour's weekly draft and this skill's look-ahead plan the same calendar. Whenever both exist
+for the same days, compare them and list every **clash**:
+- the same meeting at different days, times or lengths;
+- a meeting locked or "to book" in one plan and missing or dropped in the other;
+- a different day theme, anchor or top-3 for the same day;
+- a different book-by date or owner;
+- a slot one plan gives to one meeting and the other plan to another.
+
+For each clash: what Favour's draft says, what the look-ahead says, which source supports which
+(Bunmi's instruction, the calendar as it stands, the WhatsApp group, the Calendar Brief), and a
+recommendation. **Never pick a winner silently and never change Favour's draft.** Adeyinka settles
+it with Favour; only what they can't settle goes to Bunmi as a decision. Small wording differences
+are not clashes. If Favour's draft can't be found, say once: "Not compared: Favour's draft not
+available", and carry on.
 
 ## Start of every run
 
@@ -312,11 +330,14 @@ Open questions          only things Adeyinka or Bunmi must decide
 Never include family or personal details (show "held"). Every "to book" line must have a reason and
 a wanted outcome (standard §4); if one is unknown, put it under Open questions instead of guessing.
 
-**D. Hand over**
-1. Show Adeyinka the 3-line summary and the gap list first. She checks it (standard §10: anything that
+**D. Compare with Favour's plan** — run "Clashes with Favour's plan" above for the 2 weeks.
+Put the result at the top of the gap list, headed `Clashes with Favour's plan (<n>)`.
+
+**E. Hand over**
+1. Show Adeyinka the 3-line summary, the clashes with Favour's plan, and the gap list first. She checks it (standard §10: anything that
    doesn't make sense gets questioned, not passed on).
 2. Offer a short WhatsApp/Teams note to Udeme to go with the context file. Adeyinka sends it.
-3. Log: `- calendar-qa · plan · <N> locked, <N> to book, <N> gaps · <HH:MM WAT>`.
+3. Log: `- calendar-qa · plan · <N> locked, <N> to book, <N> gaps, <N> clashes with Favour · <HH:MM WAT>`.
 4. Friday refresh: re-run A–C, show only what changed since Thursday.
 
 ## Mode 1: Daily (morning and evening)
@@ -397,6 +418,7 @@ For each day in the next 2 weeks:
 5. Standing pattern met (standard §6)? Banks / investment almost daily, new execs every other day.
 6. Every fixed point's backwards chain on track (standard §8)? Any step late? Any meeting 2–6 weeks
    out whose book-by date falls this week?
+7. Clashes with Favour's plan (see above): any left unsettled before Monday?
 Present the 2 weeks in Bunmi's order (week about → key days → anchors → blocks). Output a fix list
 for Udeme with owner and deadline (Monday morning), and a 3-line summary Adeyinka can give Bunmi. If the plan isn't there yet, say so plainly: it's not done.
 
@@ -426,3 +448,10 @@ Commit and push only `ops/log/` at the end. The tower picks it up within the hou
 
 Four lines: how many requests are OK, how many to fix with Udeme, how many Adeyinka is covering, and
 the one thing Bunmi should know.
+
+## Change log
+
+| Date | Version | Change |
+|---|---|---|
+| 25 Nov 2026 | 1.0 | First version, built on Bunmi's 24 Nov calendar standard. |
+| 26 Nov 2026 | 1.1 | Compares the look-ahead with Favour's weekly draft and lists clashes (Plan mode step D, Sunday check item 7). Meeting lengths confirmed as the 24 Nov standard: 15 / 30 / 45. |

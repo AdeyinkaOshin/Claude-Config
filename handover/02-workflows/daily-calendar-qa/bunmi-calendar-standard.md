@@ -41,8 +41,14 @@ then the calendar, then understanding why each meeting exists.
 
 ## Known conflict with the Friday check rules
 
-The `friday-calendar-check` skill (written 20 Oct, before this standard) uses different
-meeting lengths (60 / 45 / 30 / 15 from the CT-02 working bible). Under that skill's own
-order of authority, a newer Bunmi instruction beats the Calendar Brief and the bibles.
-**[TO CONFIRM: has the Calendar Brief / CT-02 been updated to the 24 Nov lengths, and should
-the Friday check be updated to match?]**
+**Resolved 26 Nov 2026: the 24 Nov lengths are the rule** — 15 min internal, 30 min internal
+strategy, 45 min customer / external, on Bunmi's calendar. `friday-calendar-check` v1.1 now
+uses them (rule D4); the old CT-02 lengths (60 / 45 / 30 / 15) are superseded. Until the
+Calendar Brief and CT-02 are updated, the Friday check reports them under "Brief needs
+updating" instead of marking the draft wrong. **[TO CONFIRM: who updates the Calendar Brief and
+CT-02 to the new lengths?]**
+
+## Change history
+| Version | Date | Change |
+|---|---|---|
+| v1.1 | 2026-11-26 | Length conflict resolved: 24 Nov standard adopted |

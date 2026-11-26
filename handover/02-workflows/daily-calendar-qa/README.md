@@ -1,7 +1,7 @@
 ---
 title: Daily calendar QA (calendar-qa skill)
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-26
 owner: Adeyinka Oshin
 sources: calendar-qa skill (synced account skill, updatedAt 2026-11-25), Logan-VGG/station/README.md, Logan-VGG/station/flight-plan.md (skim), Logan-VGG/ops/log/ (format only), ops-runway log format
 ---
@@ -126,6 +126,7 @@ Other modes follow the same pattern. See [`modes.md`](modes.md).
 | Fix list (Fix with Udeme / I'll cover / Not on Station) | Shown in chat. Adeyinka sends the Udeme part. **[TO CONFIRM: channel to Udeme: WhatsApp, Teams or email]** |
 | Note to Udeme (draft) | Adeyinka sends it |
 | WhatsApp summary drafts for key meetings ("we agreed these 4 things") | To Bunmi to forward. **[TO CONFIRM: does Adeyinka send these to Bunmi, and on which chat?]** |
+| Clashes with Favour's plan (Plan mode and Sunday check) | Shown in chat, at the top. Adeyinka settles each with Favour; unsettled ones go to Bunmi as decisions. |
 | Thursday theme grid, Sunday fix list, Friday score | See [`modes.md`](modes.md), [`day-themes.md`](day-themes.md), [`scoring.md`](scoring.md) |
 | Log lines | `ops/log/YYYY-MM-DD.md` in `Logan-VGG` (Lagos date). Tower reads them hourly. |
 
@@ -168,3 +169,4 @@ Other modes follow the same pattern. See [`modes.md`](modes.md).
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-26 | calendar-qa v1.1: Sunday check covers clashes with Favour's draft |

@@ -1,7 +1,7 @@
 ---
 title: Two-week look-ahead (calendar-qa Plan mode)
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-26
 owner: Adeyinka Oshin
 sources: calendar-qa skill (synced account skill, updatedAt 2026-11-25), Logan-VGG/skills-bunmi/week-ahead/SKILL.md, Logan-VGG/station/README.md, Logan-VGG/ops/log/ (format only)
 ---
@@ -94,8 +94,10 @@ which one and at what time?]** See [`../../01-setup/07-scheduled-tasks-and-routi
 7. Claude builds each week in **Bunmi's order**: what the week is about → key days → each
    day's theme and anchor → top 3 per day → blocks. It works backwards from every fixed
    point in the next 6 weeks. See [`working-backwards-and-lead-times.md`](working-backwards-and-lead-times.md).
-8. Claude shows you the **3-line summary and the gap list first**. Read them before
-   anything else.
+8. Claude shows you the **3-line summary, the clashes with Favour's plan, and the gap list
+   first**. Read them before anything else. For the clash check, attach Favour's latest weekly
+   draft (or tell Claude where it is). If it isn't available, Claude says "Not compared" and
+   carries on. Settle each clash with Favour; don't change Favour's draft yourself.
 9. **Check like Bunmi would** (this is the most important step):
    - For each meeting: why is it here? What does Bunmi want from it? If you can't answer,
      question it.
@@ -159,7 +161,7 @@ Layout of both files: [`output-format.md`](output-format.md).
 2. **[TO CONFIRM]** Claude Code on `Logan-VGG`, or plain claude.ai chat?
 3. **[TO CONFIRM]** Final save location for both files (OneDrive `Planning/` share status), and whether/how the look-ahead or its 3-line summary reaches Bunmi.
 4. **[TO CONFIRM]** Channel used to send the team context file to Udeme.
-5. **[TO CONFIRM]** How Favour's weekly draft and this look-ahead are reconciled, and which wins if they disagree.
+5. ~~How Favour's weekly draft and this look-ahead are reconciled~~ — decided 26 Nov: clashes are flagged by both skills and settled by Adeyinka and Favour (see `how-the-calendar-pieces-connect.md`). **[TO CONFIRM: where Favour's weekly draft is saved, so Claude can find it without it being attached]**
 6. **[TO CONFIRM]** Is Bunmi's own `week-ahead` skill (Sunday 18:00, in `Logan-VGG/skills-bunmi/week-ahead/`) installed and in use? If yes, how does its output relate to this look-ahead?
 7. **[TO CONFIRM]** Location of the P1/P2/P3 backlog file (proposed `Planning/Backlog.xlsx`, not yet created).
 
@@ -168,3 +170,4 @@ Layout of both files: [`output-format.md`](output-format.md).
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-26 | calendar-qa v1.1: Plan mode compares with Favour's draft |

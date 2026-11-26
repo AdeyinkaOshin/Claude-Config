@@ -20,7 +20,9 @@ come from the skill's own file headers, not from git.
 The claude.ai copy is three versions behind. A manual run in claude.ai today follows v1.1 rules:
 it skips whole meetings that are "mainly about" a sensitive topic, points at Bunmi's OneDrive,
 and writes no `00_transcript.md`. Re-upload `meeting-artifacts.zip` from the repo to bring it to
-v1.4. **[TO CONFIRM: whose claude.ai account holds the v1.1 copy, and who will update it?]**
+v1.4. **Decided 26 Nov 2026:** replace the account copy with v1.4 — Adeyinka uploads
+`skills-bunmi/meeting-artifacts.zip` (v1.4) to their claude.ai account (Settings → Capabilities →
+Skills). **[TO CONFIRM: upload done? Then this line can say "account copy = v1.4".]**
 
 ## Versions
 
@@ -47,3 +49,8 @@ claude.ai copy):
 From the skill README: a Tier C meeting, an external (EXT) version, and the `concept-docs`
 hand-off. The README also lists a scheduled cloud run as untested, though the README was last
 updated after the routine was set up. **[TO CONFIRM: has the cloud routine completed real runs, and have any Tier C or EXT folders gone through review?]**
+
+## Change history
+| Version | Date | Change |
+|---|---|---|
+| v1.1 | 2026-11-26 | Account copy to be replaced with v1.4 |

@@ -1,7 +1,7 @@
 ---
 title: Skills inventory
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-26
 owner: Adeyinka Oshin
 sources: /root/.claude/skills/synced/*/manifest.json and SKILL.md files (claude.ai account skills, manifest refreshed 2026-11-25 16:18 UTC); Logan-VGG repo paths .claude/skills/, skills-bunmi/, skills-margaret/ (READMEs and SKILL.md headers, git history)
 ---
@@ -43,7 +43,7 @@ written when this table was made. **[TO CONFIRM: final folder names for the docs
 | `meeting-artifacts` | After a meeting, turns the transcript into a review folder: context note, actions, menu of documents needed, and audience-specific drafts. Draft only. | Adeyinka (manual runs); Bunmi's account (scheduled) | claude.ai account (synced) — **this copy is v1.1**; the repo copy is v1.4 | 2026-10-15 (account copy) | `02-workflows/meeting-review/` |
 | `vgg-logan-weekly-report` | Builds Logan's VGG-branded weekly Word status report for Central Ops from the "Logan AI" WhatsApp export and meeting transcripts. | Adeyinka | claude.ai account (synced) | 2026-10-05 | [`02-workflows/weekly-reports/`](../02-workflows/weekly-reports/README.md) |
 
-**[TO CONFIRM: should the account copy of `meeting-artifacts` (v1.1) be replaced with the repo's v1.4 zip, so manual runs follow the same rules as Bunmi's scheduled run?]**
+**Decided 26 Nov 2026:** the account copy of `meeting-artifacts` is being replaced with the repo's v1.4 zip. `calendar-qa` and `friday-calendar-check` are now **v1.1** (26 Nov: clash check with Favour's draft; 24 Nov meeting lengths). Their editable source and upload zips live in `Claude-Config/skills/`.
 
 ### 1b. Repo skills (Logan-VGG `.claude/skills/`)
 
@@ -131,3 +131,4 @@ status-report / process-doc / runbook skills). None of the EA workflows depend o
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-26 | calendar-qa and friday-calendar-check v1.1; sources now kept in Claude-Config/skills/ |

@@ -1,7 +1,7 @@
 ---
 title: Friday calendar check
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-26
 owner: Adeyinka Oshin
 sources: friday-calendar-check skill (synced account skill, version 1.0 of 20 Oct 2026, updatedAt 2026-10-24), bunmi-weekly-context-file skill (updatedAt 2026-11-07), calendar-qa skill (updatedAt 2026-11-25)
 ---
@@ -54,12 +54,14 @@ deadline for must-fix items on Saturday.]**
   ([`../../01-setup/06-creating-a-skill.md`](../../01-setup/06-creating-a-skill.md)).
 - Access to OneDrive › Executive Office › Calendar (Calendar Brief) and its `Feedback`
   subfolder.
-- The four files to attach (all four are required):
+- The files to attach (1–4 required, 5 optional):
   1. **The current Calendar Brief** (OneDrive › Executive Office › Calendar)
   2. **The weekly context file** (Adeyinka's, refreshed every Friday). See
      [`../weekly-context-file/`](../weekly-context-file/README.md).
   3. **The draft**: this week in detail, next three weeks in outline
   4. **Last week's feedback note**, so repeats can be caught
+  5. *Optional:* **Adeyinka's 2-week look-ahead** (from `calendar-qa` Plan mode). With it, the
+     note gets a "Clashes with Adeyinka's look-ahead" section. Without it, the check still runs.
 - The CT-00 to CT-04 working bibles. **[TO CONFIRM: are these saved in the project's files,
   or must they be attached too? Where are the masters kept?]**
 
@@ -141,11 +143,12 @@ deadline for must-fix items on Saturday.]**
 7. **[TO CONFIRM]** How and when the corrected draft (Sunday final) reaches Bunmi.
 8. **[TO CONFIRM]** Who updates the CT bibles and the Calendar Brief.
 9. **[TO CONFIRM]** Who updates the skill's time-zone table after the current travel period ends.
-10. **[TO CONFIRM]** The skill (v1.0, 20 Oct) predates Bunmi's 24 Nov calendar standard. Its meeting lengths (60/45/30/15 from CT-02) differ from the new standard (15/30/45 on Bunmi's calendar). Should the skill, the Calendar Brief and CT-02 be updated?
-11. **[TO CONFIRM]** How Favour's weekly draft relates to Adeyinka's 2-week look-ahead from `calendar-qa`. Which is the master plan?
+10. ~~Meeting lengths~~ — decided 26 Nov: skill v1.1 uses the 24 Nov standard (15/30/45). **[TO CONFIRM: who updates the Calendar Brief and CT-02 to match?]**
+11. ~~Which plan wins~~ — decided 26 Nov: neither silently; clashes are listed and settled by Favour and Adeyinka. **[TO CONFIRM: does Favour have the v1.1 skill in the Favour Calendar Management project, or does it need uploading to Favour's account too?]**
 
 ## Change history
 
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-26 | Skill v1.1: 24 Nov meeting lengths; optional look-ahead input and clash section |

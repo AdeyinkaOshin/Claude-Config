@@ -55,7 +55,8 @@ Exact times and days are in the skill and the Calendar Brief.
 | D1 | No double bookings (end time worked out from length). |
 | D2 | No more than two calls back to back; 15 minutes free after every second call. |
 | D3 | Every clash is under "Decisions needed": options, cost of each, a recommendation. Never accept both. |
-| D4 | Lengths follow CT-02 (60 / 45 / 30 / 15 by meeting type). See the conflict note in the README, section 9. |
+| D4 | Lengths on Bunmi's calendar follow the 24 Nov standard: 15 internal, 30 internal strategy, 45 customer / external. Bunmi's slot only. Old CT-02 lengths in the brief → "Brief needs updating". |
+| Clash | (v1.1, when the look-ahead is attached) Every difference between Favour's draft and Adeyinka's look-ahead — time, length, missing meeting, theme, owner — listed with a recommendation. Never picks a winner silently. |
 
 ## E. Priorities and tiers
 
@@ -94,3 +95,8 @@ Exact times and days are in the skill and the Calendar Brief.
   spacing and time zones).
 - Meetings Bunmi scheduled personally (clashes only).
 - Personal block contents. Never.
+
+## Change history
+| Version | Date | Change |
+|---|---|---|
+| v1.1 | 2026-11-26 | D4 now follows the 24 Nov lengths; new clash check |

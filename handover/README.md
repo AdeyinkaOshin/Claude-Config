@@ -62,6 +62,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Other folders
 
+- `../skills/` — editable source and upload zips for Adeyinka's own skills (`calendar-qa`, `friday-calendar-check`). Edit there, re-zip, re-upload to claude.ai.
 - `_templates/` — the template every workflow doc follows
 - `_versions/` — older copies of docs, saved automatically before each change
 - `tools/new_version.py` — snapshots a doc, bumps its version and logs the change
@@ -70,7 +71,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 ## Known issues to fix before handover
 
 - **meeting-artifacts version drift.** The claude.ai account copy is v1.1; the repo copy (and
-  Bunmi's scheduled run) is v1.4. Re-upload the v1.4 zip — see `02-workflows/meeting-review/version-history.md`.
+  Bunmi's scheduled run) is v1.4. Upload of the v1.4 zip decided 26 Nov — see `02-workflows/meeting-review/version-history.md`.
 - **Handles and names.** Skills and policy files use the handle `adeyinka`. Decide whether the successor
   reuses it or gets their own (see `02-workflows/judgment-and-work-requests/`).
 - **Ownership transfer.** This repo, the Railway account (WhatsApp) and the scheduled tasks belong to

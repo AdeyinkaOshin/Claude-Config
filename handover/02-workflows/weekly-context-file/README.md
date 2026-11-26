@@ -1,7 +1,7 @@
 ---
 title: Weekly context file for Favour
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-26
 owner: Adeyinka Oshin
 sources: bunmi-weekly-context-file skill (synced account skill, updatedAt 2026-11-07), friday-calendar-check skill (updatedAt 2026-10-24), calendar-qa skill (updatedAt 2026-11-25)
 ---
@@ -36,8 +36,10 @@ file replaces that. "Done" means:
 | Saturday | Fallback if Friday was missed |
 | Any time | When someone asks to create, refresh or update the context file |
 
-How it starts: typed by hand. **[TO CONFIRM: is this run by a scheduled task? If so, which
-one and at what time on Friday?]** See [`../../01-setup/07-scheduled-tasks-and-routines.md`](../../01-setup/07-scheduled-tasks-and-routines.md).
+How it starts: a **scheduled task** in Adeyinka's account, "Bunmi weekly context file", runs
+every **Saturday at 09:52 WAT** (it covers Monday to Saturday morning plus the next two weeks).
+When it finishes it sends one short WhatsApp nudge to Adeyinka's own "message yourself" chat and
+nothing else. It can also be typed by hand on a Friday. See [`../../01-setup/07-scheduled-tasks-and-routines.md`](../../01-setup/07-scheduled-tasks-and-routines.md).
 
 ## 3. Who does what
 
@@ -133,7 +135,7 @@ one and at what time on Friday?]** See [`../../01-setup/07-scheduled-tasks-and-r
 
 ## 9. Gaps to confirm
 
-1. **[TO CONFIRM]** Is the context file run by hand or by a scheduled task? If scheduled, when?
+1. ~~Hand or scheduled?~~ — confirmed: scheduled, Saturdays 09:52 WAT (task "Bunmi weekly context file"). **[TO CONFIRM: should it move to Friday morning to meet the 12:00 Friday deadline?]**
 2. **[TO CONFIRM]** Which Claude surface it runs in (plain chat, a project, or Claude Code).
 3. **[TO CONFIRM]** Where the finished file is saved each week.
 4. **[TO CONFIRM]** Channel used to send it to Favour.
@@ -145,3 +147,4 @@ one and at what time on Friday?]** See [`../../01-setup/07-scheduled-tasks-and-r
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-26 | Confirmed: scheduled task runs Saturdays 09:52 WAT |

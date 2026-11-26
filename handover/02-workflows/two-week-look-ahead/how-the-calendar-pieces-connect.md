@@ -25,8 +25,12 @@ There are two people planning, with two different "context" files. Do not mix th
    emails and book the meetings from it. **Daily calendar QA** then checks every day that the
    booking was done, and done right.
 
-**[TO CONFIRM: how Favour's weekly draft and Adeyinka's 2-week look-ahead are reconciled.
-Which one is the master plan if they disagree?]**
+**Clashes between the two plans (decided 26 Nov 2026).** Neither plan silently wins. Both skills
+now point clashes out: `calendar-qa` v1.1 lists **"Clashes with Favour's plan"** at the top of the
+Plan-mode gap list and in the Sunday check, and `friday-calendar-check` v1.1 lists **"Clashes with
+Adeyinka's look-ahead"** in the feedback note when the look-ahead is attached. For each clash it shows
+what each plan says, which source supports which, and a recommendation. Adeyinka and Favour settle it;
+only what they can't settle goes to Bunmi as a decision.
 
 ## The weekly rhythm (WAT)
 
@@ -65,3 +69,8 @@ is the shared base for both tracks.
 
 Claude reads, checks and drafts. **Claude never books, moves, accepts, declines or sends.**
 A person (Adeyinka, Favour or Udeme) does every send and every booking.
+
+## Change history
+| Version | Date | Change |
+|---|---|---|
+| v1.1 | 2026-11-26 | Clashes between Favour's draft and the look-ahead are now flagged by both skills |

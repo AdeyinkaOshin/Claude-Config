@@ -1,6 +1,6 @@
 ---
 name: friday-calendar-check
-description: Checks the weekly draft of Bunmi Akinyemiju's schedule against his Calendar Brief and the CT-00 to CT-04 working bibles every Friday, and writes the feedback note. Use when Favour (or the EA on duty) says "Run the Friday check", "check this week's draft", or uploads the weekly calendar draft for review.
+description: Checks the weekly draft of Bunmi Akinyemiju's schedule against his Calendar Brief and the CT-00 to CT-04 working bibles every Friday, and writes the feedback note. Use when Favour (or the EA on duty) says "Run the Friday check", "check this week's draft", or uploads the weekly calendar draft for review. Also points out where the draft clashes with Adeyinka's 2-week look-ahead.
 ---
 
 ## How to run it
@@ -11,10 +11,13 @@ In a chat in the "Favour Calendar Management" project, attach:
 2. **The context file** (Adeyinka's, refreshed every Friday)
 3. **The draft**: this week in detail, the next three weeks in outline
 4. **Last week's feedback note** (so repeats can be caught)
+5. **Optional: Adeyinka's 2-week look-ahead** (`Look-ahead-<date>.md` from `calendar-qa` Plan mode),
+   so clashes between the two plans are caught before Bunmi sees either
 
 Then type: **Run the Friday check.**
 
-If any of the four is missing, the check says which one and stops. It does not guess.
+If any of items 1–4 is missing, the check says which one and stops. If the look-ahead (5) is
+missing, the check runs anyway and says once that the plans were not compared. It does not guess.
 
 ---
 
@@ -94,10 +97,13 @@ seasonal rules from **the current Calendar Brief**. The rules below are standing
   minutes free.
 - **D3.** Every clash appears under "Decisions needed" as options, the cost of each and a
   recommendation. Never accept both sides.
-- **D4.** Lengths follow CT-02: 60 minutes for investors, important customers, first meetings
-  and leaders of mature organisations; 45 for repeat meetings with a clear agenda and for
-  standing meetings while travelling; 30 by default; 15 for decision calls and requests with
-  no context.
+- **D4.** Lengths on Bunmi's calendar follow Bunmi's calendar standard of 24 Nov 2026:
+  **15 minutes internal, 30 minutes internal strategy, 45 minutes customer / external.** The
+  meeting may run longer on everyone else's calendar; Bunmi's calendar shows only the slot
+  Bunmi joins. Flag any slot on Bunmi's calendar that is longer than its type allows, or a
+  60-minute default. The older CT-02 lengths (60/45/30/15) are superseded: if CT-02 or the
+  Calendar Brief still shows them, report it under "Brief needs updating", don't mark the
+  draft wrong for following the newer standard.
 
 **E. Priorities and tiers**
 - **E1.** When two meetings compete, the higher tier keeps the slot. Fixed outside dates are
@@ -142,6 +148,21 @@ with a VGG owner. Use it to:
 
 Do not quote private relationship notes in the feedback note. Refer to a deal by name only.
 
+### Comparing with Adeyinka's look-ahead (when attached)
+
+Adeyinka's look-ahead and Favour's draft plan the same calendar. Compare them for the days
+both cover and list every **clash**:
+- the same meeting at different days, times or lengths;
+- a meeting locked or "to book" in one plan and missing or dropped in the other;
+- a different day theme, anchor or top-3 for the same day;
+- a book-by date or pre-read owner that differs;
+- a slot one plan gives to a meeting and the other to something else.
+
+For each clash, say what each plan says, which source supports which (Bunmi's instruction,
+the brief, the calendar as it stands, the WhatsApp group), and recommend one. **Never pick a
+winner silently and never edit either plan.** Favour and Adeyinka settle it; only what they
+can't settle goes to Bunmi under "Decisions needed". Small wording differences are not clashes.
+
 ### What not to flag
 
 - Anything the brief's to-book list fixes at a time: these skip the tier check (CT-02 §10).
@@ -178,6 +199,10 @@ PRE-READS DUE (next 48 hours)
 BRIEF NEEDS UPDATING (Brief conflicts with a newer Bunmi instruction)
 - [Brief says X; Bunmi said Y on (date)].
 
+CLASHES WITH ADEYINKA'S LOOK-AHEAD (or: "Not compared: look-ahead not attached")
+1. [Meeting / day]. Draft: [ ]. Look-ahead: [ ]. Supported by: [source].
+   Recommend: [which], because [reason]. Settle with: Adeyinka.
+
 REPEATS from last week
 - [Point] — REPEAT. Suggest adding to [CT-0x §y].
 
@@ -204,3 +229,4 @@ Then give Favour **one line to post in the group**:
 | Date | Version | Change |
 |---|---|---|
 | 20 Oct 2026 | 1.0 | First version, for the session with Favour, Logan and Adeyinka. |
+| 26 Nov 2026 | 1.1 | D4 lengths follow Bunmi's 24 Nov standard (15 internal / 30 internal strategy / 45 customer), CT-02 lengths superseded. Optional 5th input: Adeyinka's look-ahead; new section listing clashes between the two plans. |

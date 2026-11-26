@@ -1,6 +1,6 @@
 # Open questions — [TO CONFIRM] items
 
-Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the doc, then re-run the script.
+Generated 2026-11-26 by `tools/list_open_questions.py`. Answer these, edit the doc, then re-run the script.
 
 
 **149 open questions.**
@@ -45,7 +45,7 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 
 ## [02-workflows/daily-calendar-qa/bunmi-calendar-standard.md](../02-workflows/daily-calendar-qa/bunmi-calendar-standard.md)
 
-- [ ] has the Calendar Brief / CT-02 been updated to the 24 Nov lengths, and should the Friday check be updated to match?
+- [ ] who updates the Calendar Brief and CT-02 to the new lengths?
 
 ## [02-workflows/daily-calendar-qa/day-themes.md](../02-workflows/daily-calendar-qa/day-themes.md)
 
@@ -71,6 +71,8 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 - [ ] how and when the draft reaches Bunmi
 - [ ] owner
 - [ ] who updates it once the current trip ends (early December)
+- [ ] who updates the Calendar Brief and CT-02 to match?
+- [ ] does Favour have the v1.1 skill in the Favour Calendar Management project, or does it need uploading to Favour's account too?
 
 ## [02-workflows/judgment-and-work-requests/README.md](../02-workflows/judgment-and-work-requests/README.md)
 
@@ -130,7 +132,7 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 
 ## [02-workflows/meeting-review/version-history.md](../02-workflows/meeting-review/version-history.md)
 
-- [ ] whose claude.ai account holds the v1.1 copy, and who will update it?
+- [ ] upload done? Then this line can say "account copy = v1.4".
 - [ ] have edits been made in review that were never logged? If so, log them so the skill can learn.
 - [ ] has the cloud routine completed real runs, and have any Tier C or EXT folders gone through review?
 
@@ -167,20 +169,20 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 - [ ] does Adeyinka run this in Claude Code on `Logan-VGG`, or in a plain claude.ai chat? In a plain chat the Station check and the log step are skipped.
 - [ ] final save location, and whether/how the look-ahead or its 3-line summary is sent to Bunmi
 - [ ] channel used: WhatsApp, Teams or email
+- [ ] where Favour's weekly draft is saved, so Claude can find it without it being attached
 
 ## [02-workflows/two-week-look-ahead/how-the-calendar-pieces-connect.md](../02-workflows/two-week-look-ahead/how-the-calendar-pieces-connect.md)
 
-- [ ] how Favour's weekly draft and Adeyinka's 2-week look-ahead are reconciled. Which one is the master plan if they disagree?
 - [ ] who sends it and at what time
 
 ## [02-workflows/weekly-context-file/README.md](../02-workflows/weekly-context-file/README.md)
 
-- [ ] is this run by a scheduled task? If so, which one and at what time on Friday?
 - [ ] does Adeyinka run this in a plain chat, a specific Claude project, or a Claude Code session?
 - [ ] where the file is saved (OneDrive folder) so it can be found next week for the version number.
 - [ ] channel used: WhatsApp, Teams or email.
 - [ ] does Favour replace the old file or keep past versions in the project?
 - [ ] location
+- [ ] should it move to Friday morning to meet the 12:00 Friday deadline?
 
 ## [02-workflows/weekly-reports/README.md](../02-workflows/weekly-reports/README.md)
 
@@ -228,7 +230,6 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 ## [03-reference/skills-inventory.md](../03-reference/skills-inventory.md)
 
 - [ ] final folder names for the docs once the 02-workflows map exists.
-- [ ] should the account copy of `meeting-artifacts` (v1.1) be replaced with the repo's v1.4 zip, so manual runs follow the same rules as Bunmi's scheduled run?
 - [ ] is this in use, and which doc covers it?
 - [ ] is `week-ahead` still used now that `calendar-qa` Plan mode exists?
 - [ ] which of Bunmi's skills (other than `meeting-artifacts`) are actually installed and in use in Bunmi's Claude today.
@@ -240,7 +241,3 @@ Generated 2026-11-25 by `tools/list_open_questions.py`. Answer these, edit the d
 - [ ] did Margaret's v2 pack reach Margaret and get installed?
 - [ ] handover docs for concept-docs, okr-alignment, opportunity-screener, ceo-review-catchup, deal-handoff, ghc-deal-brief and Margaret's skills — or are they out of scope for the new person?
 - [ ] whether any Canva, Figma or operations plugin skills are used.
-
-## [README.md](../README.md)
-
-- [ ] `** — these are gaps to settle with Adeyinka before handover. ## 01 — Setup (do once, in this order) | # | Doc | What you'll have at the end | |---|---|---| | 1 | [Claude account, projects and cloud sessions
