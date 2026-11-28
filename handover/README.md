@@ -1,7 +1,7 @@
 ---
 title: Handover pack — start here
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-28
 owner: Adeyinka Oshin
 ---
 
@@ -62,6 +62,7 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Other folders
 
+- `../handover-word/` — **Word copies** of every doc, same folders and names (`.docx`). Generated — edit the `.md` files here, then run `python3 handover/tools/build_word.py`.
 - `../skills/` — editable source and upload zips for Adeyinka's own skills (`calendar-qa`, `friday-calendar-check`). Edit there, re-zip, re-upload to claude.ai.
 - `_templates/` — the template every workflow doc follows
 - `_versions/` — older copies of docs, saved automatically before each change
@@ -89,3 +90,4 @@ and [`CHANGELOG.md`](CHANGELOG.md).
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-28 | Added handover-word/ (Word copies) |

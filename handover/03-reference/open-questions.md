@@ -1,6 +1,6 @@
 # Open questions — [TO CONFIRM] items
 
-Generated 2026-11-26 by `tools/list_open_questions.py`. Answer these, edit the doc, then re-run the script.
+Generated 2026-11-28 by `tools/list_open_questions.py`. Answer these, edit the doc, then re-run the script.
 
 
 **149 open questions.**

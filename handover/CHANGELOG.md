@@ -5,6 +5,8 @@ and what changed. Old versions are kept in `_versions/`. How this works:
 `03-reference/how-this-pack-stays-updated.md`.
 
 <!-- new entries below this line -->
+- **2026-11-28** · `README.md` v1.0 → v1.1 — Added handover-word/ (Word copies)
+- **2026-11-28** · `03-reference/how-this-pack-stays-updated.md` v1.0 → v1.1 — Word copies of every doc, rebuilt by build_word.py
 - **2026-11-26** · `03-reference/skills-inventory.md` v1.0 → v1.1 — calendar-qa and friday-calendar-check v1.1; sources now kept in Claude-Config/skills/
 - **2026-11-26** · `02-workflows/meeting-review/version-history.md` v1.0 → v1.1 — Account copy to be replaced with v1.4
 - **2026-11-26** · `02-workflows/weekly-context-file/README.md` v1.0 → v1.1 — Confirmed: scheduled task runs Saturdays 09:52 WAT

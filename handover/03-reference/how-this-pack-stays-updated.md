@@ -1,7 +1,7 @@
 ---
 title: How this handover pack stays updated
-version: v1.0
-last_updated: 2026-11-25
+version: v1.1
+last_updated: 2026-11-28
 owner: Adeyinka Oshin
 ---
 
@@ -42,6 +42,13 @@ It never sends anything and never edits `Logan-VGG`.
 To change the day/time or pause it: ask Claude in a cloud session ("update the handover
 pack scheduled task to …") or edit it at claude.ai/code/routines.
 
+## 2a. Word copies
+
+Every doc also exists as a Word file in `handover-word/` (same folders, same names, `.docx`;
+links between docs point at the Word files). They are generated from the `.md` files by
+`python3 handover/tools/build_word.py` — never edit the Word copies directly. The weekly task
+re-runs the script, so the Word copies always match.
+
 ## 3. Versions — how to see an old way of working
 
 | Where | What |
@@ -73,3 +80,4 @@ rebuild the list. The weekly run rebuilds it too.
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-11-25 | First written |
+| v1.1 | 2026-11-28 | Word copies of every doc, rebuilt by build_word.py |
